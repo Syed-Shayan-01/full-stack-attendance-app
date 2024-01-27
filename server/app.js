@@ -2,6 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const indexRouter = require('./routes/index');
-app.use(cors)
-app.use('', indexRouter)
-app.listen(4000);
+const port = 4000;
+app.use(cors());
+// app.use('/', indexRouter)
+app.get('/', (req, res, next) => {
+    res.send('Hello Shayan');
+    next();
+})
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
