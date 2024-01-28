@@ -27,20 +27,33 @@ const createUser = async (req, res) => {
 const findUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const userCheck = await Auth.findOne({ email })
-        if (!userCheck.email) {
-            return res.status(404).send({ status: 404, error: 'USER NOT EXIST' });
+        console.log(password, email)
+        const userCheck = await Auth.findOne({ email });
+        if (!userCheck) {
+            return res.status(400).send({ status: 400, error: 'USER NOT EXIST' });
         }
         const passCom = await bcrypt.compare(password, userCheck.password);
         if (!passCom) {
-            return res.status(404).send({ status: 404, error: 'Incorrect Password' });
+            return res.status(403).send({ status: 403, error: 'Incorrect Password' });
         }
-        const token = jwt.sign({ _id: userCheck._id, isAdmin: userCheck.isAdmin }, 'gsgdgs');
-        return res.status(201).send({ status: 201, message: response, token })
+        const token = jwt.sign({ _id: userCheck._id, isAdmin: userCheck.isAdmin }, process.env.SECRET);
+        return res.status(200).send({ status: 200, message: 'Success', token })
     } catch (error) {
-        res.status(500).send({ status: 500, error })
+        return res.status(500).send({ status: 500, error })
     }
 }
 
 
-module.exports = { createUser, findUser }
+const updateUser = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const hashPass = await bcrypt.hash(password, 12);
+        const updates = await Auth.findByIdAndUpdate({ _id: req.params.id }, { password: hashPass });
+        if (updates) {
+            return res.status(204).send({ status: 204, message: "USER UPDATED SUCESSFULY" })
+        }
+    } catch (err) {
+        return res.status(400).send({ status: 400, message: "USER DOES'NT UPDATE" })
+    }
+}
+module.exports = { createUser, findUser, updateUser }
