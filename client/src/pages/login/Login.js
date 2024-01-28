@@ -1,8 +1,10 @@
 import React from 'react'
 
 const Login = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
     return (
-
         <div class="min-h-screen bg-blue-50 flex justify-center items-center p-4">
             <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-sm">
                 <div class="flex justify-between items-center mb-4">
@@ -17,9 +19,9 @@ const Login = () => {
                 <div class="flex items-center justify-between mb-4">
                     <hr class="w-full" />
                     <span class="px-2 text-sm text-blue-800">or</span>
-                    <hr class="w-full" />
+                    <hr class="w-full" />   
                 </div>
-                <form class="space-y-4">
+                <form class="space-y-4" onSubmit={handleSubmit}>
                     <input
                         class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         placeholder="Email address"
