@@ -47,8 +47,8 @@ const findUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { password } = req.body;
-        const hashPass = await bcrypt.hash(password, 12);
-        const updates = await Auth.findByIdAndUpdate({ _id: req.params.id }, { password: hashPass });
+        // const hashPass = await bcrypt.hash(password, 12);
+        const updates = await Auth.findByIdAndUpdate({ _id: req.params._id }, { password });
         if (updates) {
             return res.status(204).send({ status: 204, message: "USER UPDATED SUCESSFULY" })
         }
