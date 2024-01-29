@@ -40,7 +40,6 @@ const findUser = async (req, res) => {
             return res.status(403).send({ status: 403, error: 'Incorrect Password' });
         }
         const token = jwt.sign({ _id: userCheck._id, isAdmin: userCheck.isAdmin }, process.env.SECRET);
-        res.cookie('authorization', token, { maxAge: 500000000000 }, { httpOnly: true })
         return res.status(200).send({ status: 200, message: 'Success', token })
     } catch (error) {
         return res.status(500).send({ status: 500, error })
