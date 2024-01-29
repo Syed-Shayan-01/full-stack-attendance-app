@@ -16,6 +16,9 @@ const createUser = async (req, res) => {
         if (checkEmail) {
             return res.status(409).send({ status: 409, error: 'USER ALREADY EXIST' })
         }
+        if (!isAdmin) {
+            return res.status(409).send({ status: 409, error: 'Not Admin' })
+        }
         const response = await saveData.save();
         return res.status(201).send({ status: 201, message: response })
     } catch (error) {
@@ -47,13 +50,14 @@ const findUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { password } = req.body;
-        // const hashPass = await bcrypt.hash(password, 12);
-        const updates = await Auth.findByIdAndUpdate({ _id: req.params._id }, { password });
+        const hashPass = await bcrypt.hash(password, 12);
+        const updates = await Auth.findByIdAndUpdate({ _id: req.params.id }, { password: hashPass });
         if (updates) {
-            return res.status(204).send({ status: 204, message: "USER UPDATED SUCESSFULY" })
+            return res.status(204).send({ status: 204, message: "USER UPDATED SUCCESSFULLY" });
         }
     } catch (err) {
-        return res.status(400).send({ status: 400, message: "USER DOES'NT UPDATE" })
+        return res.status(400).send({ status: 400, message: "USER DOESN'T UPDATE" });
     }
-}
+};
+
 module.exports = { createUser, findUser, updateUser }
