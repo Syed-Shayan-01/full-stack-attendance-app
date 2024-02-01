@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { AvatarImage, Avatar } from "@/components/ui/avatar"
-import Navbar from "../../component/navbar/Navbar"
-import Header from "@/component/header/Header"
+import { FileEditIcon, LogOutIcon, SchoolIcon, TicketIcon } from "lucide-react"
+import Navbar from "@/component/navbar/Navbar"
 
-export default function Student() {
+export default function Component() {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
             <main className="flex-1 p-6">
-                <Header />
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-2xl font-bold">Students</h1>
+                    <Button>Add Student</Button>
+                </div>
                 <div className="bg-white p-6 rounded-lg shadow">
                     <Table>
                         <TableHeader>
@@ -95,6 +98,7 @@ export default function Student() {
                 </div>
             </main>
         </div>
+
     )
 }
 
@@ -118,28 +122,5 @@ function DeleteIcon(props) {
         </svg>
     )
 }
-
-
-function FileEditIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5" />
-            <polyline points="14 2 14 8 20 8" />
-            <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z" />
-        </svg>
-    )
-}
-
 
 

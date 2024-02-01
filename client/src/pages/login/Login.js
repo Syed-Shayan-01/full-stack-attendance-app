@@ -1,16 +1,16 @@
 import baseUrl from '@/config/baseUrl';
 import React, { useState } from 'react'
-
+import { useRouter } from 'next/router';
 const Login = () => {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
-    console.log(email, password)
+    const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = { email, password };
         try {
-            const response = await fetch(`${baseUrl}auth/login`, {
-                method: "POST", // or 'PUT'
+            const response = await fetch(`http://localhost:4000/auth/login`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -18,7 +18,10 @@ const Login = () => {
             });
 
             const result = await response.json();
-            console.log("Success:", result);
+            localStorage.setItem('token', result.token)
+            if (result) {
+                router.replace('./student')
+            }
         } catch (error) {
             console.error("Error:", error);
         }
