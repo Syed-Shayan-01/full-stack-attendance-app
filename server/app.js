@@ -11,10 +11,10 @@ var bodyParser = require('body-parser');
 const verifyToken = require('./middlewares/verify');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser())
-app.use(cors());
-app.use('/', verifyToken,indexRouter)
+app.use('/', verifyToken, indexRouter)
 
 app.use('/auth', authRouter)
 app.listen(process.env.PORT, () => {

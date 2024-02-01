@@ -4,5 +4,5 @@ const router = express.Router();
 
 router.post('/signup', createUser);
 router.post('/login', findUser)
-router.put('/update', updateUser)
+// router.put('/update', updateUser)
 module.exports = router;
