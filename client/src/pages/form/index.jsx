@@ -1,16 +1,30 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import ImageUploading from "react-images-uploading";
 
 export default function Component() {
   const [image, setimage] = useState(null);
   const [name, setname] = useState("");
-  const [email, setemail] = useState();
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [course, setcourse] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("");
+  console.log(image);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const handleImage = (e) => {
-    const image = setimage(e.target.files[0]);
-    console.log(image);
+    const file = e.target.files[0];
+    setimage(file);
+    // Display the selected image in the form
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
   return (
     <div className="mx-auto max-w-[350px] space-y-6">
@@ -24,19 +38,21 @@ export default function Component() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="student-image">Upload Student Image</Label>
+
             <Input
               id="student-image"
               required
               type="file"
               onChange={handleImage}
+              className="hidden"
+              // ref={imageRef}
             />
             <div className="mt-4">
               <label htmlFor="student-image">
                 <img
-                  alt="Uploaded student image"
                   className="w-32 h-32 mx-auto rounded-full object-cover cursor-pointer"
                   height="200"
-                  src="/placeholder.svg"
+                  src={imageUrl}
                   style={{
                     aspectRatio: "200/200",
                     objectFit: "cover",

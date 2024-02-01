@@ -3,16 +3,14 @@ import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@
 import { AvatarImage, Avatar } from "@/components/ui/avatar"
 import { FileEditIcon } from "lucide-react"
 import Navbar from "@/component/navbar/Navbar"
+import Header from "@/component/header/Header"
 
 export default function Student() {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
             <main className="flex-1 p-6">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold">Students</h1>
-                    <Button>Add Student</Button>
-                </div>
+                <Header />
                 <div className="bg-white p-6 rounded-lg shadow">
                     <Table>
                         <TableHeader>
