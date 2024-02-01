@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { AvatarImage, Avatar } from "@/components/ui/avatar"
-import { FileEditIcon, LogOutIcon, SchoolIcon, TicketIcon } from "lucide-react"
+import { FileEditIcon } from "lucide-react"
 import Navbar from "@/component/navbar/Navbar"
 
-export default function Component() {
+export default function Student() {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
