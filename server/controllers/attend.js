@@ -23,7 +23,7 @@ cloudinary.config({
 });
 
 
-const uploadImage = async () => {
+const uploadImage = () => {
     return new Promise((reslove, reject) => {
         fs.readdirSync(`${filePath}/`).forEach((file) => {
             cloudinary.v2.uploader.upload(`${filePath}/${file}`, (error, result) => {
@@ -36,7 +36,7 @@ const uploadImage = async () => {
                 if (error) {
                     reject(error)
                 } else {
-                    console.log(result.url)
+                    res.status(200).send({ imageUrl: result.url })
                 }
 
 
@@ -45,19 +45,36 @@ const uploadImage = async () => {
     })
 }
 const createUser = async (req, res) => {
+    try {
+        const { imageUrl, name, email, password, course, phoneNumber } = req.body;
 
-    const { isImage, name, email, password, course, phoneNumber } = req.body;
+        const emailFind = await Attend.findOne({ email });
 
-    const emailFind = await Attend.findOne({ email });
+        if (emailFind) {
+            return res.status(400).send({ status: 400, message: "Email Already Exist" });
+        }
 
-    if (emailFind) {
-        return res.status(400).send({ status: 400, message: "Email Already Exist" });
+
+
+        if (!imageUrl) {
+            res.status(400).send('Error image')
+        }
+        const saveData = new Attend({
+            isImage: imageUrl,
+            name,
+            email,
+            password,
+            course,
+            phoneNumber
+        });
+
+        const response = await saveData.save();
+        res.status(201).send({ status: 201, message: response });
+    } catch (error) {
+        res.status(500).send({ status: 500, message: "Internal Server Error" });
     }
-
-    const saveData = new Attend({
-        isImage, name, email, password, course, phoneNumber
-    })
 }
 
 
-module.exports = { uploadImage, upload }
+
+module.exports = { uploadImage, upload, createUser }
