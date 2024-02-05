@@ -23,7 +23,7 @@ cloudinary.config({
 });
 
 
-const uploadImage = () => {
+const uploadImage = (req, res) => {
     return new Promise((reslove, reject) => {
         fs.readdirSync(`${filePath}/`).forEach((file) => {
             cloudinary.v2.uploader.upload(`${filePath}/${file}`, (error, result) => {
@@ -47,18 +47,15 @@ const uploadImage = () => {
 const createUser = async (req, res) => {
     try {
         const { imageUrl, name, email, password, course, phoneNumber } = req.body;
-
         const emailFind = await Attend.findOne({ email });
 
         if (emailFind) {
             return res.status(400).send({ status: 400, message: "Email Already Exist" });
         }
 
-
-
-        if (!imageUrl) {
-            res.status(400).send('Error image')
-        }
+        // if (!imageUrl) {
+        //     res.status(400).send('Error image')
+        // }
         const saveData = new Attend({
             isImage: imageUrl,
             name,

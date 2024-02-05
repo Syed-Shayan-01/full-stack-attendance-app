@@ -2,8 +2,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
-import ImageUploading from "react-images-uploading";
 import baseUrl from "@/config/baseUrl";
+import axios from "axios";
 
 export default function Component() {
   const [image, setimage] = useState(null);
@@ -12,53 +12,49 @@ export default function Component() {
   const [password, setpassword] = useState("");
   const [course, setcourse] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
-  console.log(image);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Add state to track submission
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = { image, name, email, password, course, phoneNumber };
-    const formData = new FormData();
-    formData.append("image", image);
-    try {
-      const response = await fetch(`${baseUrl}upload`, {
-        method: "POST", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-      console.log("Success:", result.image);
-    } catch (err) {
-      throw err;
-    }
-    // try {
-    //   const response = await fetch(`${baseUrl}/attend`, {
-    //     method: "POST", // or 'PUT'
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
-
-    //   const result = await response.json();
-    //   console.log("Success:", result);
-    // } catch (err) {
-    //   throw err;
-    // }
-  };
   const handleImage = (e) => {
     const file = e.target.files[0];
     setimage(file);
-    // Display the selected image in the form
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImageUrl(reader.result);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!image || isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("image", image);
+      const response = await axios.post(`${baseUrl}upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Cloudinary Upload Response:", response.data.imageUrl);
+      const imageUrl = response.data.imageUrl;
+
+      const data = {
+        name,
+        email,
+        password,
+        course,
+        phoneNumber,
+        imageUrl,
+      };
+      const finalDataToMongoDb = await axios.post(`${baseUrl}attend`, data);
+      if (finalDataToMongoDb) console.log(finalDataToMongoDb);
+      alert("Success");
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+    } finally {
+      setIsSubmitting(false); // Enable submissions for future attempts
     }
   };
   return (
@@ -84,16 +80,29 @@ export default function Component() {
               />
               <div className="mt-4">
                 <label htmlFor="student-image">
-                  <img
-                    className="w-32 h-32 mx-auto rounded-full object-cover cursor-pointer"
-                    height="200"
-                    src={imageUrl}
-                    style={{
-                      aspectRatio: "200/200",
-                      objectFit: "cover",
-                    }}
-                    width="200"
-                  />
+                  {image ? (
+                    <img
+                      className="w-32 h-32 mx-auto rounded-full object-cover cursor-pointer"
+                      height="200"
+                      src={URL.createObjectURL(image)}
+                      style={{
+                        aspectRatio: "200/200",
+                        objectFit: "cover",
+                      }}
+                      width="200"
+                    />
+                  ) : (
+                    <img
+                      className="w-32 h-32 mx-auto rounded-full object-cover cursor-pointer"
+                      height="200"
+                      src={image}
+                      style={{
+                        aspectRatio: "200/200",
+                        objectFit: "cover",
+                      }}
+                      width="200"
+                    />
+                  )}
                 </label>
               </div>
             </div>
