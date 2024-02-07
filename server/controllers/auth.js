@@ -30,7 +30,6 @@ const createUser = async (req, res) => {
 const findUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(password, email)
         const userCheck = await Auth.findOne({ email });
         if (!userCheck) {
             return res.status(400).send({ status: 400, error: 'USER NOT EXIST' });

@@ -72,6 +72,16 @@ const createUser = async (req, res) => {
     }
 }
 
+const getAttendUser = async (req, res) => {
+    try {
 
+        const allUsers = await Attend.find();
 
-module.exports = { uploadImage, upload, createUser }
+        return res.status(200).send(allUsers);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ status: 500, message: 'Internal Server Error' });
+    }
+}
+
+module.exports = { uploadImage, upload, createUser, getAttendUser }
