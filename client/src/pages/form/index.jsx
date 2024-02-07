@@ -1,6 +1,6 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Label } from "@/page/ui/label";
+import { Input } from "@/page/ui/input";
+import { Button } from "@/page/ui/button";
 import { useRef, useState } from "react";
 import baseUrl from "@/config/baseUrl";
 import axios from "axios";

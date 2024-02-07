@@ -1,7 +1,7 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { TableHead, TableRow, TableHeader, TableBody, Table } from "@/components/ui/table"
+import { AvatarImage, AvatarFallback, Avatar } from "@/page/ui/avatar"
+import { TableHead, TableRow, TableHeader, TableBody, Table } from "@/page/ui/table"
 import Navbar from "../../component/navbar/Navbar"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/page/ui/button"
 import Header from "@/component/header/Header"
 
 export default function Attendance() {

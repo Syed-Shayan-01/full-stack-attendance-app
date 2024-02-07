@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button"
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import { AvatarImage, Avatar } from "@/components/ui/avatar"
+import { Button } from "@/page/ui/button"
+import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/page/ui/table"
+import { AvatarImage, Avatar } from "@/page/ui/avatar"
 import { FileEditIcon } from "lucide-react"
-import Navbar from "@/component/navbar/Navbar"
-import Header from "@/component/header/Header"
+import Navbar from "@/components/navbar/Navbar"
+import Header from "@/components/header/Header"
 
 export default function Student() {
     return (
