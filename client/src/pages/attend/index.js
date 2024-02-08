@@ -2,14 +2,8 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/page/ui/avatar"
 import { TableHead, TableRow, TableHeader, TableBody, Table } from "@/page/ui/table"
 import Navbar from "../../component/navbar/Navbar"
 import Header from "@/component/header/Header"
-import { useEffect } from "react"
-import baseUrl from "@/config/baseUrl"
 
 export default function Attendance() {
-    useEffect( () => {
-        const res =  axios.get(`${baseUrl}getallUser`);
-        console.log(res)
-    })
     return (
         <>
             <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">

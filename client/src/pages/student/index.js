@@ -4,8 +4,27 @@ import { AvatarImage, Avatar } from "@/page/ui/avatar"
 import { FileEditIcon } from "lucide-react"
 import Navbar from "@/components/navbar/Navbar"
 import Header from "@/components/header/Header"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import baseUrl from "@/config/baseUrl"
+import Image from "next/image"
 
 export default function Student() {
+    const [FetchedData, setFetchedData] = useState([]);
+    useEffect(() => {
+        try {
+            axios.get(`${baseUrl}getallUser`).then((response) => {
+                const data = response.data;
+
+                if (data) {
+                    const dataArray = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+                    setFetchedData(dataArray);
+                }
+            })
+        } catch (error) {
+            throw error;
+        }
+    })
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
@@ -16,81 +35,34 @@ export default function Student() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>id</TableHead>
-                                <TableHead>Profile Img</TableHead>
+                                <TableHead>Image</TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Course Name</TableHead>
                                 <TableHead>Password</TableHead>
                             </TableRow>
                         </TableHeader>
+
                         <TableBody>
-                            <TableRow>
-                                <TableCell>1</TableCell>
-                                <TableCell>
-                                    <Avatar>
-                                        <AvatarImage alt="Abdullah" src="/placeholder.svg?height=32&width=32" />
-                                    </Avatar>
-                                </TableCell>
-                                <TableCell>Abdullah</TableCell>
-                                <TableCell>Web And App</TableCell>
-                                <TableCell>1234567</TableCell>
-                                <TableCell>
-                                    <FileEditIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                                <TableCell>
-                                    <DeleteIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>2</TableCell>
-                                <TableCell>
-                                    <Avatar>
-                                        <AvatarImage alt="Bilal Raza" src="/placeholder.svg?height=32&width=32" />
-                                    </Avatar>
-                                </TableCell>
-                                <TableCell>Bilal Raza</TableCell>
-                                <TableCell>Web And App</TableCell>
-                                <TableCell>1234567</TableCell>
-                                <TableCell>
-                                    <FileEditIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                                <TableCell>
-                                    <DeleteIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>3</TableCell>
-                                <TableCell>
-                                    <Avatar>
-                                        <AvatarImage alt="Abdul Qadir" src="/placeholder.svg?height=32&width=32" />
-                                    </Avatar>
-                                </TableCell>
-                                <TableCell>Abdul Qadir</TableCell>
-                                <TableCell>Web And App</TableCell>
-                                <TableCell>1234567</TableCell>
-                                <TableCell>
-                                    <FileEditIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                                <TableCell>
-                                    <DeleteIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>4</TableCell>
-                                <TableCell>
-                                    <Avatar>
-                                        <AvatarImage alt="Ahbaab" src="/placeholder.svg?height=32&width=32" />
-                                    </Avatar>
-                                </TableCell>
-                                <TableCell>Ahbaab</TableCell>
-                                <TableCell>Web And App</TableCell>
-                                <TableCell>1234567</TableCell>
-                                <TableCell>
-                                    <FileEditIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                                <TableCell>
-                                    <DeleteIcon className="h-5 w-5 text-gray-600" />
-                                </TableCell>
-                            </TableRow>
+                            {FetchedData.map((items) => {
+                                return (
+                                    <TableRow key={items._id}>
+                                        <TableCell>1</TableCell>
+                                        <TableCell>
+                                            <Avatar>
+                                                <img alt={items.name} src={items.isImage} className="w-12 rounded-full " />
+                                            </Avatar>
+                                        </TableCell>
+                                        <TableCell>{items.name}</TableCell>
+                                        <TableCell>{items.course}</TableCell>
+                                        <TableCell>{items.password}</TableCell>
+                                        <TableCell>
+                                            <FileEditIcon className="h-5 w-5 text-gray-600" />
+                                        </TableCell>
+                                        <TableCell>
+                                            <DeleteIcon className="h-5 w-5 text-gray-600" />
+                                        </TableCell>
+                                    </TableRow>)
+                            })}
                         </TableBody>
                     </Table>
                 </div>

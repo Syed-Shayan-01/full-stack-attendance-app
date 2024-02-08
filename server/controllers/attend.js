@@ -74,7 +74,6 @@ const createUser = async (req, res) => {
 
 const getAttendUser = async (req, res) => {
     try {
-
         const allUsers = await Attend.find();
 
         return res.status(200).send(allUsers);
