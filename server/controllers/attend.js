@@ -71,6 +71,26 @@ const createUser = async (req, res) => {
         res.status(500).send({ status: 500, message: "Internal Server Error" });
     }
 }
+const attendUpdateUser = async (req, res) => {
+    try {
+        const { _id } = req.params;
+        const { name, password, course, phoneNumber, isImage } = req.body;
+
+        if (typeof isImage === 'undefined') {
+            return res.status(400).json({ status: 400, message: "isImage field is required" });
+        }
+
+        const update = await Attend.updateOne({ _id }, { name, password, course, phoneNumber, isImage });
+
+        if (update.nModified === 0) {
+            return res.status(400).json({ status: 400, message: "User was not updated" });
+        }
+
+        return res.status(200).json({ status: 200, message: 'User successfully updated' });
+    } catch (error) {
+        return res.status(500).json({ status: 500, message: error.message });
+    }   
+}
 
 const getAttendUser = async (req, res) => {
     try {
@@ -83,4 +103,4 @@ const getAttendUser = async (req, res) => {
     }
 }
 
-module.exports = { uploadImage, upload, createUser, getAttendUser }
+module.exports = { uploadImage, upload, createUser, getAttendUser, attendUpdateUser }

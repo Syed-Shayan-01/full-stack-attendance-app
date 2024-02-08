@@ -1,7 +1,7 @@
 import { Button } from "@/page/ui/button"
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/page/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/page/ui/table"
 import { AvatarImage, Avatar } from "@/page/ui/avatar"
-import { FileEditIcon } from "lucide-react"
+import { DeleteIcon, FileEditIcon } from "lucide-react"
 import Navbar from "@/components/navbar/Navbar"
 import Header from "@/components/header/Header"
 import axios from "axios"
@@ -24,73 +24,51 @@ export default function Student() {
         } catch (error) {
             throw error;
         }
-    })
+    }, [])
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
             <main className="flex-1 p-6">
                 <Header />
-                <div className="bg-white p-6 rounded-lg shadow">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>id</TableHead>
-                                <TableHead>Image</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Course Name</TableHead>
-                                <TableHead>Password</TableHead>
-                            </TableRow>
-                        </TableHeader>
-
-                        <TableBody>
+                <div className="bg-white p-6 rounded-lg shadow overflow-x-auto">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="text-lg font-bold">
+                                <th className="px-4 py-2">id</th>
+                                <th className="px-4 py-2">Image</th>
+                                <th className="px-4 py-2">Name</th>
+                                <th className="px-4 py-2">Course Name</th>
+                                <th className="px-4 py-2">Password</th>
+                                <th className="px-4 py-2">Edit</th>
+                                <th className="px-4 py-2">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody >
                             {FetchedData.map((items) => {
                                 return (
-                                    <TableRow key={items._id}>
-                                        <TableCell>1</TableCell>
-                                        <TableCell>
+                                    <tr key={items.id} className="text-sm">
+                                        <td className=" px-4 py-2">{items.id}</td>
+                                        <td className=" px-4 py-2">
                                             <Avatar>
-                                                <img alt={items.name} src={items.isImage} className="w-12 rounded-full " />
+                                                <img alt={items.name} src={items.isImage} className="w-10 rounded-full" />
                                             </Avatar>
-                                        </TableCell>
-                                        <TableCell>{items.name}</TableCell>
-                                        <TableCell>{items.course}</TableCell>
-                                        <TableCell>{items.password}</TableCell>
-                                        <TableCell>
-                                            <FileEditIcon className="h-5 w-5 text-gray-600" />
-                                        </TableCell>
-                                        <TableCell>
-                                            <DeleteIcon className="h-5 w-5 text-gray-600" />
-                                        </TableCell>
-                                    </TableRow>)
+                                        </td>
+                                        <td className=" px-4 py-2">{items.name}</td>
+                                        <td className=" px-4 py-2">{items.course}</td>
+                                        <td className=" px-4 py-2">{items.password}</td>
+                                        <td className=" px-4 py-2">
+                                            <FileEditIcon className="text-gray-600" />
+                                        </td>
+                                        <td className=" px-4 py-2">
+                                            <DeleteIcon className="text-gray-600" />
+                                        </td>
+                                    </tr>
+                                );
                             })}
-                        </TableBody>
-                    </Table>
+                        </tbody>
+                    </table>
                 </div>
             </main>
         </div>
-
     )
 }
-
-function DeleteIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z" />
-            <line x1="18" x2="12" y1="9" y2="15" />
-            <line x1="12" x2="18" y1="9" y2="15" />
-        </svg>
-    )
-}
-
-

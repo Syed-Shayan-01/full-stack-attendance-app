@@ -5,7 +5,7 @@ import Link from "next/link"
 const Navbar = () => {
     return (
         <>
-            <aside className="w-full md:w-64 bg-white p-6">
+            <aside className=" md:w-64 bg-white p-6">
                 <div className="mb-10">
                     <span className="text-2xl font-bold">Logo</span>
                 </div>
