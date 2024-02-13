@@ -84,6 +84,7 @@ const attendUpdateUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message });
     }
+<<<<<<< HEAD
 }
 
 
@@ -99,6 +100,8 @@ const deleteUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message });
     }
+=======
+>>>>>>> 8bbefd635ee7a7e7f8a9a004b180ca95d55f0a20
 }
 
 const getAttendUser = async (req, res) => {
