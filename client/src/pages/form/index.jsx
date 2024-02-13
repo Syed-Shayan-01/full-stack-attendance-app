@@ -48,22 +48,9 @@ export default function Component() {
         phoneNumber,
         imageUrl,
       };
-<<<<<<< HEAD
       await axios.post(`${baseUrl}attend`, data).then((response) => {
         console.log(response);
       });
-=======
-      const finalDataToMongoDb = await axios.post(`${baseUrl}attend`, data);
-      if (finalDataToMongoDb) console.log(finalDataToMongoDb);
-      alert("Success");
-
-      const updateData = await axios.put(
-        `${baseUrl}updateUser/${studentId}`,
-        data
-      );
-      console.log("Update Response:", updateData.data);
-      alert("Success");
->>>>>>> 8bbefd635ee7a7e7f8a9a004b180ca95d55f0a20
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
     } finally {
