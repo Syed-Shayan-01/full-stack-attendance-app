@@ -31,18 +31,7 @@ const Login = () => {
         <div className="min-h-screen bg-blue-50 flex justify-center items-center p-4">
             <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-sm">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold text-blue-800">Welcome to My Blogs</h2>
-                </div>
-                <p className="text-sm text-blue-800 mb-6">Sign in to continue to your account.</p>
-                <div className="space-y-4 mb-4">
-                    <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-600 text-white w-full">
-                        Continue with Google
-                    </button>
-                </div>
-                <div className="flex items-center justify-between mb-4">
-                    <hr className="w-full" />
-                    <span className="px-2 text-sm text-blue-800">or</span>
-                    <hr className="w-full" />
+                    <h2 className="text-2xl font-bold text-blue-800">Welcome to My Attendance Panel</h2>
                 </div>
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <input
