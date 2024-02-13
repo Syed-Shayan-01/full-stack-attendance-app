@@ -50,10 +50,12 @@ const updateUser = async (req, res) => {
     try {
         const { password } = req.body;
         const hashPass = await bcrypt.hash(password, 12);
-        const updates = await Auth.findByIdAndUpdate({ _id: req.params.id }, { password: hashPass });
-        if (updates) {
-            return res.status(204).send({ status: 204, message: "USER UPDATED SUCCESSFULLY" });
+        const updates = await Auth.findByIdAndUpdate({ _id: req.params.id }, {password: hashPass});
+        if (!updates) {
+            return res.status(400).json({ status: 400, message: 'User Password not updated' });
         }
+
+        return res.status(204).json({ status: 200, message: 'Password successfully updated' });
     } catch (err) {
         return res.status(400).send({ status: 400, message: "USER DOESN'T UPDATE" });
     }

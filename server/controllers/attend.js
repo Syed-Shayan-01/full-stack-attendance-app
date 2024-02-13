@@ -75,7 +75,7 @@ const createUser = async (req, res) => {
 const attendUpdateUser = async (req, res) => {
     try {
         const update = await Attend.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body });
-        console.log(update)
+        
         if (!update) {
             return res.status(400).json({ status: 400, message: 'User not updated' });
         }
@@ -84,10 +84,7 @@ const attendUpdateUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message });
     }
-<<<<<<< HEAD
 }
-
-
 const deleteUser = async (req, res) => {
     try {
         const deleteData = await Attend.deleteOne({ _id: req.params.id }, { $set: req.body });
@@ -100,8 +97,6 @@ const deleteUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message });
     }
-=======
->>>>>>> 8bbefd635ee7a7e7f8a9a004b180ca95d55f0a20
 }
 
 const getAttendUser = async (req, res) => {
