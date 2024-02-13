@@ -51,6 +51,13 @@ export default function Component() {
       const finalDataToMongoDb = await axios.post(`${baseUrl}attend`, data);
       if (finalDataToMongoDb) console.log(finalDataToMongoDb);
       alert("Success");
+
+      const updateData = await axios.put(
+        `${baseUrl}updateUser/${studentId}`,
+        data
+      );
+      console.log("Update Response:", updateData.data);
+      alert("Success");
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
     } finally {

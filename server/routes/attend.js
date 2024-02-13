@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/getallUser', getAttendUser);
 router.post('/upload', upload.single('image'), uploadImage);
 router.post('/attend', createUser);
-router.put('/attendUpdate', attendUpdateUser)
+router.put('/attendUpdate/:id', attendUpdateUser)
 module.exports = router;
