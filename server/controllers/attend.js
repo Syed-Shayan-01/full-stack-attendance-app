@@ -3,7 +3,8 @@ const fs = require('fs-extra');
 const path = require('path')
 const cloudinary = require('cloudinary')
 const filePath = path.join(process.cwd(), 'public', 'images');
-const multer = require('multer')
+const multer = require('multer');
+const { ObjectId } = require('mongodb');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -73,23 +74,31 @@ const createUser = async (req, res) => {
 }
 const attendUpdateUser = async (req, res) => {
     try {
-        const { _id } = req.params;
-        const { name, password, course, phoneNumber, isImage } = req.body;
-
-        if (typeof isImage === 'undefined') {
-            return res.status(400).json({ status: 400, message: "isImage field is required" });
-        }
-
-        const update = await Attend.updateOne({ _id }, { name, password, course, phoneNumber, isImage });
-
-        if (update.nModified === 0) {
-            return res.status(400).json({ status: 400, message: "User was not updated" });
+        const update = await Attend.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body });
+        console.log(update)
+        if (!update) {
+            return res.status(400).json({ status: 400, message: 'User not updated' });
         }
 
         return res.status(200).json({ status: 200, message: 'User successfully updated' });
     } catch (error) {
         return res.status(500).json({ status: 500, message: error.message });
-    }   
+    }
+}
+
+
+const deleteUser = async (req, res) => {
+    try {
+        const deleteData = await Attend.deleteOne({ _id: req.params.id }, { $set: req.body });
+
+        if (!deleteData) {
+            return res.status(400).json({ status: 400, message: 'User not Deleted' });
+        }
+
+        return res.status(200).json({ status: 200, message: 'User successfully Deleted' });
+    } catch (error) {
+        return res.status(500).json({ status: 500, message: error.message });
+    }
 }
 
 const getAttendUser = async (req, res) => {
@@ -103,4 +112,4 @@ const getAttendUser = async (req, res) => {
     }
 }
 
-module.exports = { uploadImage, upload, createUser, getAttendUser, attendUpdateUser }
+module.exports = { uploadImage, upload, createUser, getAttendUser, attendUpdateUser, deleteUser }

@@ -48,9 +48,9 @@ export default function Component() {
         phoneNumber,
         imageUrl,
       };
-      const finalDataToMongoDb = await axios.post(`${baseUrl}attend`, data);
-      if (finalDataToMongoDb) console.log(finalDataToMongoDb);
-      alert("Success");
+      await axios.post(`${baseUrl}attend`, data).then((response) => {
+        console.log(response);
+      });
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
     } finally {

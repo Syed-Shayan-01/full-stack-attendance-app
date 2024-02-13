@@ -8,6 +8,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import baseUrl from "@/config/baseUrl"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function Student() {
     const [FetchedData, setFetchedData] = useState([]);
@@ -25,6 +26,20 @@ export default function Student() {
             throw error;
         }
     }, [])
+
+
+    // delete user funtion
+
+    const handleDelete = (id) => {
+        try {
+            axios.delete(`${baseUrl}deleteUser/${id}`).then((response) => {
+                setFetchedData(prevData => prevData.filter(item => item._id !== id));
+                console.log(response)
+            });
+        } catch (error) {
+
+        }
+    }
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
@@ -57,10 +72,10 @@ export default function Student() {
                                         <td className=" px-4 py-2">{items.course}</td>
                                         <td className=" px-4 py-2">{items.password}</td>
                                         <td className=" px-4 py-2">
-                                            <FileEditIcon className="text-gray-600" />
+                                            <Link href={'./form/'}><FileEditIcon className="text-gray-600" /></Link>
                                         </td>
                                         <td className=" px-4 py-2">
-                                            <DeleteIcon className="text-gray-600" />
+                                            <DeleteIcon onClick={() => { handleDelete(items._id) }} className="text-gray-600" />
                                         </td>
                                     </tr>
                                 );
