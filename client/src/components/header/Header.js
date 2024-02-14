@@ -9,8 +9,6 @@ const Header = () => {
         const authToken = localStorage.getItem("token");
         if (authToken) {
             setToken(authToken);
-            console.log(authToken);
-
         }
     }, []);
     return (
