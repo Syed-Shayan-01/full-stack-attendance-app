@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 const Header = () => {
     const [token, setToken] = useState("");
-
     useEffect(() => {
         const authToken = localStorage.getItem("token");
         if (authToken) {

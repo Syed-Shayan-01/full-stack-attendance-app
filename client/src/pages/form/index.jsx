@@ -3,9 +3,13 @@ import { Input } from "@/page/ui/input";
 import { Button } from "@/page/ui/button";
 import { useRef, useState } from "react";
 import baseUrl from "@/config/baseUrl";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Component() {
+  const router = useRouter();
   const [image, setimage] = useState(null);
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
@@ -37,7 +41,6 @@ export default function Component() {
         },
       });
 
-      console.log("Cloudinary Upload Response:", response.data.imageUrl);
       const imageUrl = response.data.imageUrl;
 
       const data = {
@@ -49,7 +52,9 @@ export default function Component() {
         imageUrl,
       };
       await axios.post(`${baseUrl}attend`, data).then((response) => {
-        console.log(response);
+        if (response) {
+          router.replace("./student");
+        }
       });
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);

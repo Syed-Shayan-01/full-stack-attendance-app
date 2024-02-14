@@ -7,7 +7,6 @@ import Header from "@/components/header/Header"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import baseUrl from "@/config/baseUrl"
-import Image from "next/image"
 import Link from "next/link"
 
 export default function Student() {
@@ -46,42 +45,40 @@ export default function Student() {
             <main className="flex-1 p-6">
                 <Header />
                 <div className="bg-white p-6 rounded-lg shadow overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="text-lg font-bold">
-                                <th className="px-4 py-2">id</th>
-                                <th className="px-4 py-2">Image</th>
-                                <th className="px-4 py-2">Name</th>
-                                <th className="px-4 py-2">Course Name</th>
-                                <th className="px-4 py-2">Password</th>
-                                <th className="px-4 py-2">Edit</th>
-                                <th className="px-4 py-2">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody >
+                    <div className="w-full">
+                        <ul className=" flex justify-between text-lg font-bold">
+                            <li>id</li>
+                            <li>Image</li>
+                            <li>Name</li>
+                            <li>Course</li>
+                            <li>Password</li>
+                            <li>Edit</li>
+                            <li>Delete</li>
+                        </ul>
+                        <div  >
                             {FetchedData.map((items) => {
                                 return (
-                                    <tr key={items.id} className="text-sm">
-                                        <td className=" px-4 py-2">{items.id}</td>
-                                        <td className=" px-4 py-2">
+                                    <ul key={items.id} className="flex justify-between  text-sm">
+                                        <li>{items.id}</li>
+                                        <li>
                                             <Avatar>
                                                 <img alt={items.name} src={items.isImage} className="w-10 rounded-full" />
                                             </Avatar>
-                                        </td>
-                                        <td className=" px-4 py-2">{items.name}</td>
-                                        <td className=" px-4 py-2">{items.course}</td>
-                                        <td className=" px-4 py-2">{items.password}</td>
-                                        <td className=" px-4 py-2">
+                                        </li>
+                                        <li>{items.name}</li>
+                                        <li>{items.course}</li>
+                                        <li>{items.password}</li>
+                                        <li>
                                             <Link href={'./form/'}><FileEditIcon className="text-gray-600" /></Link>
-                                        </td>
-                                        <td className=" px-4 py-2">
+                                        </li>
+                                        <li>
                                             <DeleteIcon onClick={() => { handleDelete(items._id) }} className="text-gray-600" />
-                                        </td>
-                                    </tr>
+                                        </li>
+                                    </ul>
                                 );
                             })}
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
