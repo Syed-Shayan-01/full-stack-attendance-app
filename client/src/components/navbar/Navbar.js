@@ -31,7 +31,13 @@ const Navbar = () => {
                     </a>
                     <a className="flex items-center space-x-2 text-gray-600" href="#">
                         <LogOutIcon className="h-6 w-6" />
-                        <span onClick={handleLogout} className="font-medium">Logout</span>
+                        <span onClick={() => {
+                            const clearToken = localStorage.removeItem("token");
+                            if (clearToken) {
+                                router.replace('/')
+                            }
+                            handleLogout();
+                        }} className="font-medium">Logout</span>
                     </a>
                 </nav>
             </aside>
