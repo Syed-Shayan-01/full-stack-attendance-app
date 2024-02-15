@@ -1,5 +1,5 @@
 import baseUrl from '@/config/baseUrl';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { GraduationCapIcon } from 'lucide-react';
 const Login = () => {
@@ -32,7 +32,14 @@ const Login = () => {
         } catch (error) {
             console.error("Error:", error);
         }
-    }
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            router.replace("/student"); // Redirect to login page if token doesn't exist
+        }
+    }, []);
 
     return (
         <div className="min-h-screen bg-blue-50 flex justify-center items-center p-4">

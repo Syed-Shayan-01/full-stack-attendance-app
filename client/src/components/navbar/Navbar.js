@@ -1,19 +1,21 @@
 import { LogOutIcon, SchoolIcon, TicketIcon } from "lucide-react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Navbar = () => {
     const router = useRouter();
     const handleLogout = () => {
         try {
             localStorage.clear("token");
-            router.replace('/');
+            router.replace('/login');
         } catch (error) {
             throw error;
         }
 
     };
+    useEffect(() => {
 
-
+    })
     return (
         <>
             <aside className=" md:w-64 bg-white p-6">
@@ -25,19 +27,13 @@ const Navbar = () => {
                         <SchoolIcon className="h-6 w-6" />
                         <span className="font-medium">Students</span>
                     </a>
-                    <a className="flex items-center space-x-2 text-gray-600" href="#">
+                    {/* <a className="flex items-center space-x-2 text-gray-600" href="#">
                         <TicketIcon className="h-6 w-6" />
                         <span className="font-medium">Attendance</span>
-                    </a>
+                    </a> */}
                     <a className="flex items-center space-x-2 text-gray-600" href="#">
                         <LogOutIcon className="h-6 w-6" />
-                        <span onClick={() => {
-                            const clearToken = localStorage.removeItem("token");
-                            if (clearToken) {
-                                router.replace('/')
-                            }
-                            handleLogout();
-                        }} className="font-medium">Logout</span>
+                        <span onClick={handleLogout} className="font-medium">Logout</span>
                     </a>
                 </nav>
             </aside>

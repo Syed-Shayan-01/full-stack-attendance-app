@@ -1,14 +1,13 @@
 import { Label } from "@/page/ui/label";
 import { Input } from "@/page/ui/input";
 import { Button } from "@/page/ui/button";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import baseUrl from "@/config/baseUrl";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Component() {
+export default function Form() {
   const router = useRouter();
   const [image, setimage] = useState(null);
   const [name, setname] = useState("");
@@ -56,6 +55,8 @@ export default function Component() {
           router.replace("./student");
         }
       });
+
+      // Success message
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
     } finally {

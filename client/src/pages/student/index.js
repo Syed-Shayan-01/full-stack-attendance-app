@@ -1,16 +1,21 @@
-import { Button } from "@/page/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/page/ui/table"
-import { AvatarImage, Avatar } from "@/page/ui/avatar"
 import { DeleteIcon, FileEditIcon } from "lucide-react"
 import Navbar from "@/components/navbar/Navbar"
 import Header from "@/components/header/Header"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import baseUrl from "@/config/baseUrl"
-import Link from "next/link"
+import { useRouter } from "next/router"
 
 export default function Student() {
     const [FetchedData, setFetchedData] = useState([]);
+    const router = useRouter();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.replace("./login/"); // Redirect to login page if token doesn't exist
+        }
+    }, []);
+
     useEffect(() => {
         try {
             axios.get(`${baseUrl}getallUser`).then((response) => {
@@ -39,48 +44,63 @@ export default function Student() {
 
         }
     }
+
+    const handleUrl = (id) => {
+        setselectedUser(`./form/${id}`); // Navigate to update page with user ID in URL params
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
             <Navbar />
             <main className="flex-1 p-6">
                 <Header />
-                <div className="bg-white p-6 rounded-lg shadow overflow-x-auto">
-                    <div className="w-full">
-                        <ul className=" flex justify-between text-lg font-bold">
-                            <li>id</li>
-                            <li>Image</li>
-                            <li>Name</li>
-                            <li>Course</li>
-                            <li>Password</li>
-                            <li>Edit</li>
-                            <li>Delete</li>
-                        </ul>
-                        <div  >
-                            {FetchedData.map((items) => {
+                <div className="bg-white p-6 rounded-lg shadow">
+                    <div className="relative w-full overflow-auto">
+                        <table className="w-full caption-bottom text-sm">
+                            <thead className="[&amp;_tr]:border-b">
+                                <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                        id
+                                    </th>
+                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                        Profile Img
+                                    </th>
+                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                        Name
+                                    </th>
+                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                        Course Name
+                                    </th>
+                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                        Password
+                                    </th>
+                                </tr>
+                            </thead>
+                            {FetchedData.map((item) => {
                                 return (
-                                    <ul key={items.id} className="flex justify-between  text-sm">
-                                        <li>{items.id}</li>
-                                        <li>
-                                            <Avatar>
-                                                <img alt={items.name} src={items.isImage} className="w-10 rounded-full" />
-                                            </Avatar>
-                                        </li>
-                                        <li>{items.name}</li>
-                                        <li>{items.course}</li>
-                                        <li>{items.password}</li>
-                                        <li>
-                                            <Link href={'./form/'}><FileEditIcon className="text-gray-600" /></Link>
-                                        </li>
-                                        <li>
-                                            <DeleteIcon onClick={() => { handleDelete(items._id) }} className="text-gray-600" />
-                                        </li>
-                                    </ul>
-                                );
+                                    <tbody key={item.id} className="[&amp;_tr:last-child]:border-0">
+                                        <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">1</td>
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                <img src={`${item.isImage}`} className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"></img>
+                                            </td>
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.name}</td>
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.course}</td>
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.password}</td>
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                <FileEditIcon onClick={() => { handleUrl(item._id) }} />
+                                            </td>
+                                            <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                                <DeleteIcon className=" cursor-pointer" onClick={() => { handleDelete(item._id) }} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                )
                             })}
-                        </div>
+                        </table>
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     )
 }
