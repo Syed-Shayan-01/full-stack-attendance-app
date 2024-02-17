@@ -45,9 +45,6 @@ export default function Student() {
         }
     }
 
-    const handleUrl = (id) => {
-        setselectedUser(`./form/${id}`); // Navigate to update page with user ID in URL params
-    };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
