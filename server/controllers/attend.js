@@ -72,10 +72,12 @@ const createUser = async (req, res) => {
         res.status(500).send({ status: 500, message: "Internal Server Error" });
     }
 }
+
+// create update api this api use for student data updated 
 const attendUpdateUser = async (req, res) => {
     try {
         const update = await Attend.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body });
-        
+
         if (!update) {
             return res.status(400).json({ status: 400, message: 'User not updated' });
         }
@@ -85,6 +87,8 @@ const attendUpdateUser = async (req, res) => {
         return res.status(500).json({ status: 500, message: error.message });
     }
 }
+
+// create delete api 
 const deleteUser = async (req, res) => {
     try {
         const deleteData = await Attend.deleteOne({ _id: req.params.id }, { $set: req.body });

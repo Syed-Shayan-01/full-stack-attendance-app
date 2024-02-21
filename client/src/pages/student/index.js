@@ -85,7 +85,7 @@ export default function Student() {
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.course}</td>
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.password}</td>
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                                                <FileEditIcon onClick={() => { handleUrl(item._id) }} />
+                                                <FileEditIcon onClick={() => window.location.href = `./updateForm/${item._id}`} />
                                             </td>
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                                                 <DeleteIcon className=" cursor-pointer" onClick={() => { handleDelete(item._id) }} />
