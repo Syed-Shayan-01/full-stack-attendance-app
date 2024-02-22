@@ -99,9 +99,11 @@ export default function Form() {
                     />
                   ) : (
                     <img
-                      className="w-32 h-32 mx-auto rounded-full object-cover cursor-pointer"
+                      className="w-32 h-32 mx-auto border-[1px] border-gray-300 rounded-full object-cover cursor-pointer"
                       height="200"
-                      src={image}
+                      src={
+                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                      }
                       style={{
                         aspectRatio: "200/200",
                         objectFit: "cover",
