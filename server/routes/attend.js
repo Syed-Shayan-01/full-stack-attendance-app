@@ -1,5 +1,6 @@
 const express = require('express');
-const { uploadImage, upload, createUser, getAttendUser, attendUpdateUser, deleteUser } = require('../controllers/attend');
+const { createUser, getAttendUser, attendUpdateUser, deleteUser } = require('../controllers/attend');
+const { uploadImage, upload } = require('../cloudinary/attend');
 const router = express.Router();
 
 router.get('/getallUser', getAttendUser);
