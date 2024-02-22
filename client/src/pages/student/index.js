@@ -5,6 +5,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import baseUrl from "@/config/baseUrl"
 import { useRouter } from "next/router"
+import Image from "next/image"
 
 export default function Student() {
     const [FetchedData, setFetchedData] = useState([]);
@@ -14,7 +15,7 @@ export default function Student() {
         if (!token) {
             router.replace("./login/"); // Redirect to login page if token doesn't exist
         }
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         try {
@@ -79,7 +80,14 @@ export default function Student() {
                                         <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">1</td>
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                                                <img src={`${item.isImage}`} className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"></img>
+                                                <Image src={`${item.isImage}`} alt="profile image"
+                                                    style={{
+                                                        aspectRatio: "200/200",
+                                                        objectFit: "cover",
+                                                    }}
+                                                    className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+                                                    width={400} height={400}>
+                                                </Image>
                                             </td>
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.name}</td>
                                             <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.course}</td>

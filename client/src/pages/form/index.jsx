@@ -1,11 +1,12 @@
 import { Label } from "@/page/ui/label";
 import { Input } from "@/page/ui/input";
 import { Button } from "@/page/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import baseUrl from "@/config/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Form() {
   const router = useRouter();
@@ -87,28 +88,28 @@ export default function Form() {
               <div className="mt-4">
                 <label htmlFor="student-image">
                   {image ? (
-                    <img
+                    <Image
                       className="w-32 h-32 mx-auto rounded-full object-cover cursor-pointer"
-                      height="200"
+                      height={200}
                       src={URL.createObjectURL(image)}
                       style={{
                         aspectRatio: "200/200",
                         objectFit: "cover",
                       }}
-                      width="200"
+                      alt="profile image"
+                      width={200}
                     />
                   ) : (
-                    <img
+                    <Image
                       className="w-32 h-32 mx-auto border-[1px] border-gray-300 rounded-full object-cover cursor-pointer"
-                      height="200"
-                      src={
-                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                      }
+                      height={200}
+                      src={"/profile.png"}
+                      alt="profile image"
                       style={{
                         aspectRatio: "200/200",
                         objectFit: "cover",
                       }}
-                      width="200"
+                      width={200}
                     />
                   )}
                 </label>

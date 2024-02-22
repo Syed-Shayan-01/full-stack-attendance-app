@@ -39,7 +39,7 @@ const Login = () => {
         if (token) {
             router.replace("/student"); // Redirect to login page if token doesn't exist
         }
-    }, []);
+    }, [router]);
 
     return (
         <div className="min-h-screen bg-blue-50 flex justify-center items-center p-4">
