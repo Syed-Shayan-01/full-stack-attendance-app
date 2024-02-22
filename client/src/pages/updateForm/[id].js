@@ -19,8 +19,8 @@ export default function Form() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${baseUrl}attendUpdate/${id}`, { name });
-            router.push('./student');
+            await axios.put(`${baseUrl}attendUpdate/${id}`, { name, email, password, course, phoneNumber });
+            router.push('/student');
         } catch (error) {
             console.error("Update failed", error);
         }
