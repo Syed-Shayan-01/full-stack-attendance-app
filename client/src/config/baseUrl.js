@@ -1,3 +1,3 @@
-const baseUrl = 'https://full-stack-attendance-app.vercel.app/';
+const baseUrl = 'https://stormy-cardigan-crab.cyclic.app/';
 
 export default baseUrl;
