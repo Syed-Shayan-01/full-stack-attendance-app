@@ -13,6 +13,13 @@ const verifyToken = require('./middlewares/verify');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(cors());
+app.use(cors(
+    {
+        origin: ["https://attendance-sever-app.vercel.app/"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
+    }
+))
 app.use(express.json());
 app.use(cookieParser())
 app.use('/', indexRouter)
