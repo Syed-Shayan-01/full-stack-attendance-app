@@ -3,6 +3,7 @@ const Attend = require('../models/attendSchema');
 const createUser = async (req, res) => {
     try {
         const { imageUrl, name, email, password, course, phoneNumber } = req.body;
+        console.log(imageUrl);
         const emailFind = await Attend.findOne({ email });
 
         if (emailFind) {

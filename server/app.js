@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const env = require('dotenv').config();
 const mongoose = require('./db/auth')
 const jwt = require('jsonwebtoken')
 var cookieParser = require('cookie-parser')

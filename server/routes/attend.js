@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/getallUser', getAttendUser);
 router.post('/upload', upload.single('image'), uploadImage);
-router.post('/attend', createUser);
+router.post('/attendance', createUser);
 router.put('/attendUpdate/:id', attendUpdateUser)
 router.delete('/deleteUser/:id', deleteUser);
 module.exports = router;

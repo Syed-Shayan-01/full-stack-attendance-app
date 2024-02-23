@@ -51,7 +51,7 @@ export default function Form() {
         phoneNumber,
         imageUrl,
       };
-      await axios.post(`${baseUrl}attend`, data).then((response) => {
+      axios.post(`${baseUrl}attendance`, data).then((response) => {
         if (response) {
           router.replace("./student");
         }
