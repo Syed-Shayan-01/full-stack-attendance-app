@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 // app.use(cors());
 app.use(cors(
     {
-        origin: ["https://shayan-attend.vercel.app/"],
+        origin: ["https://shayan-attend.vercel.app"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     }
