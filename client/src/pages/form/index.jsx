@@ -42,7 +42,7 @@ export default function Form() {
       });
 
       const imageUrl = response.data.imageUrl;
-
+      console.log(imageUrl);
       const data = {
         name,
         email,
