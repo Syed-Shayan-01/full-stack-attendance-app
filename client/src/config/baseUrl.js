@@ -1,3 +1,3 @@
-const baseUrl = 'http://localhost:4000/';
+const baseUrl = 'https://stormy-cardigan-crab.cyclic.app/';
 
 export default baseUrl;
