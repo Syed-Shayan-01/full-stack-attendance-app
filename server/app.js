@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const port = process.env.PORT || 4000;
 const app = express();
 const cors = require('cors');
 const mongoose = require('./db/auth')
@@ -10,7 +11,6 @@ const authRouter = require('./routes/auth');
 const attendRouter = require('./routes/attend')
 var bodyParser = require('body-parser');
 const verifyToken = require('./middlewares/verify');
-const port = process.env.PORT || 4000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(cors());
