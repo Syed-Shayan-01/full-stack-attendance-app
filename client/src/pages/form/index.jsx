@@ -83,6 +83,7 @@ export default function Form() {
               <Input
                 id="student-image"
                 type="file"
+                accept={"image/*"}
                 onChange={handleImage}
                 className="hidden"
                 // ref={imageRef}
