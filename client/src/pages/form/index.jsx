@@ -35,23 +35,23 @@ export default function Form() {
     try {
       const formData = new FormData();
       formData.append("image", image);
-      // const response = await axios.post(`${baseUrl}upload`, formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
+      const response = await axios.post(`${baseUrl}upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      // const imageUrl = response.data.imageUrl;
-      // if (response) {
-      //   console.log(response.data.imageUrl);
-      // }
+      const imageUrl = response.data.imageUrl;
+      if (response) {
+        console.log(response.data.imageUrl);
+      }
       const data = {
         name,
         email,
         password,
         course,
         phoneNumber,
-        // imageUrl,
+        imageUrl,
       };
       axios.post(`${baseUrl}attendance`, data).then((response) => {
         if (response) {
