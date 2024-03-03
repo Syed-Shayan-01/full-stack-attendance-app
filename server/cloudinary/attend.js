@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path')
 const cloudinary = require('cloudinary')
-const filePath = path.join(process.cwd(), 'file');
+const filePath = path.join(process.cwd(), 'newFile');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
