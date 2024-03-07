@@ -6,7 +6,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, `${filePath}/`)
+        cb(null, `./uploads/`)
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
@@ -24,9 +24,9 @@ cloudinary.config({
 
 const uploadImage = (req, res) => {
     return new Promise((reslove, reject) => {
-        fs.readdirSync(`${filePath}/`).forEach((file) => {
-            cloudinary.v2.uploader.upload(`${filePath}/${file}`, (error, result) => {
-                fs.remove(`${filePath}/${file}`, err => {
+        fs.readdirSync(`./uploads/`).forEach((file) => {
+            cloudinary.v2.uploader.upload(`./uploads/${file}`, (error, result) => {
+                fs.remove(`./uploads/${file}`, err => {
                     if (err) {
                         reject(err)
 
