@@ -46,11 +46,17 @@ export default function Form() {
         course: formData.course,
         phoneNumber: formData.phoneNumber,
       };
-      axios.post(`${baseUrl}attendance`, data).then((response) => {
-        if (response) {
-          router.replace("./student");
-        }
-      });
+      axios
+        .post(`${baseUrl}attendance`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          if (response) {
+            router.replace("./student");
+          }
+        });
 
       // Success message
     } catch (error) {
