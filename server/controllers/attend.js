@@ -30,6 +30,7 @@ const createUser = async (req, res) => {
                 return res.status(200).send({ imageUrl: result.url })
             }
         });
+        
         const emailFind = await Attend.findOne({ email });
 
         if (emailFind) {
