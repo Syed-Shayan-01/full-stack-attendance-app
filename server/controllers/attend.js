@@ -1,14 +1,40 @@
 const Attend = require('../models/attendSchema');
-
+const cloudinary = require('cloudinary');
+const fs = require('fs-extra')
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_APIKEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+});
 const createUser = async (req, res) => {
     try {
         const { imageUrl, name, email, password, course, phoneNumber } = req.body;
+
+        const file = req.files.image;
+        await cloudinary.v2.uploader.upload(file.tempFilePath, (error, result) => {
+            fs.remove(`./tmp/`, (err) => {
+                if (err) {
+                    return res.status(404).send({ status: 404, message: 'File Not removed' })
+                }
+                else {
+                    return res.status(200).send({
+                        status: 200, message: 'File removed'
+                    });
+                };
+            })
+            if (error) {
+                return res.status(400).send({ status: 400, message: "Image not upload in cloudinary" })
+            }
+
+            if (result) {
+                return res.status(200).send({ imageUrl: result.url })
+            }
+        });
         const emailFind = await Attend.findOne({ email });
 
         if (emailFind) {
             return res.status(400).send({ status: 400, message: "Email Already Exist" });
         }
-
         const saveData = new Attend({
             isImage: imageUrl,
             name,
